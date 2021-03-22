@@ -10,18 +10,6 @@ function Main() {
                 <Link to="/register"><button className="btn get-started">Get Started!</button></Link>
                 <Link to="/about"><button className="btn read-more">Read More</button></Link>
             </article>
-            <div className="box">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
         </main>
     );
 }
