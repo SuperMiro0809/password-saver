@@ -10,7 +10,7 @@ function PassTable() {
                         <Form.Control placeholder="Website/Application" />
                     </Col>
                     <Col>
-                        <Form.Control placeholder="Last name" />
+                        <Form.Control type="submit" />
                     </Col>
                 </Row>
             </Form>
