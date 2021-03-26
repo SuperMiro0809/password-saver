@@ -29,5 +29,9 @@
 
     ul {
         margin-top: 50px;
+
+        li:last-child a {
+            color: red;
+        }
     }
 }

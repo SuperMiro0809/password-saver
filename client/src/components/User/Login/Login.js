@@ -16,7 +16,7 @@ function Login() {
                     <FormControl type="password" className="form-control" />
                 </FormGroup>
                 <FormGroup className="btn-wrapper">
-                    <Button className="register-btn">Login</Button>
+                    <Button className="login-btn">Login</Button>
                     <div className="options">
                         <Link to="/register" >Don't have an account?</Link>
                         <Link to="/register" >Forgot password?</Link>
