@@ -1,6 +1,7 @@
 import './Dashboard.scss';
 import { Switch, Route } from 'react-router-dom';
 import Header from '../Header/Header';
+import DashboardDefault from './DashboardDefault/DashboardDefault';
 import PassTable from './PassTable/PassTable';
 
 function Dashboard() {
@@ -9,7 +10,11 @@ function Dashboard() {
             <Header />
             <main className="content">
                 <Switch>
-                    <Route path="/dashboard" component={PassTable}/>
+                    <Route path="/dashboard">
+                        <DashboardDefault title="Password Table">
+                            <PassTable />
+                        </DashboardDefault>
+                    </Route>
                     <Route path="/admin/add-password" />
                     <Route path="/admin/profile"/>
                 </Switch>
