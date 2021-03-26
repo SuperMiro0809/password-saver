@@ -4,6 +4,7 @@ import Main from './components/Main/Main';
 import Login from './components/User/Login/Login';
 import Register from './components/User/Register/Register';
 import About from './components/About/About';
+import Dashboard from './components/Dashboard/Dashboard';
 
 function App() {
   return (
@@ -22,10 +23,11 @@ function App() {
       </div>
       
       <Switch>
-        <Route path="/" component={Main} exact />
-        <Route path="/register" component={Register} exact />
-        <Route path="/login" component={Login} exact />
-        <Route path="/about" component={About} exact />
+        <Route path="/" component={Main} exact/>
+        <Route path="/dashboard" component={Dashboard}/>
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/about" component={About} />
       </Switch>
     </div>
   );

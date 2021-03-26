@@ -1,0 +1,33 @@
+.Header {
+    background-color: transparent;
+    box-shadow: 8px 2px 15px -2px #979797;
+    flex-basis: 15%;
+    height: 100vh;
+    z-index: 1;
+
+    .site-title {
+        position: relative;
+
+        h5 {
+            text-align: center;
+            text-transform: uppercase;
+            margin: 30px;
+            font-size: 18px;
+            color: black;
+        }
+    }
+
+    .site-title::after {
+        content: '';
+        position: absolute;
+        width: 85%;
+        height: 1px;
+        left: 15px;
+        background-color: gray;
+        background-color: hsla(0,0%,71%,.3);
+    }
+
+    ul {
+        margin-top: 30px;
+    }
+}

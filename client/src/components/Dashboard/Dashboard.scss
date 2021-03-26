@@ -1,0 +1,11 @@
+.Dashboard {
+    color: rgb(89, 86, 82);
+    position: relative;
+    display: flex;
+
+    .content {
+        background-color: #EEEEEE;
+        flex-basis: 85%;
+        padding: 30px;
+    }
+}

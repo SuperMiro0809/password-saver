@@ -1,0 +1,22 @@
+.link-wrapper {
+    list-style-type: none;
+
+    a {
+        cursor: pointer;
+        color: rgb(89, 86, 82);
+        text-decoration: none;
+        display: block;
+        padding: 10px 20px;
+        margin: 20px;
+
+        i {
+            margin-right: 5px;
+        }
+    }
+
+    a:hover {
+        background-color: hsla(0,0%,71%,.3);
+        color: rgb(89, 86, 82);
+        text-decoration: none;
+    }
+}
