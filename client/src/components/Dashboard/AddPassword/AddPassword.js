@@ -1,6 +1,6 @@
 import './AddPassword.scss';
 import { Component } from 'react';
-import { Card, Form, FormControl, FormLabel, Button, FormGroup, DropdownButton, Dropdown, InputGroup } from 'react-bootstrap';
+import { Card, Form, FormControl, FormLabel, FormGroup } from 'react-bootstrap';
 
 class AddPassword extends Component {
 
@@ -8,46 +8,62 @@ class AddPassword extends Component {
         super(props);
 
         this.state = {
-            placeType: 'Website Url'
+            placeType: 'Website Url',
+            name: '',
+            auth: '',
+            password: ''
         }
     }
 
-    handlePlaceType(e) {
-        this.setState({ placeType: e.target.value });
+    changeHandler(e) {
+        const el = e.target.name;
+
+        this.setState({ el: e.target.value })
+    }
+
+    submitFormHandler(e) {
+        e.preventDefault();
+
         console.log(this.state);
     }
 
     render() {
         return (
             <Card.Body className="component-content">
-                <Form>
-                    {/* <InputGroup>
-                        <DropdownButton
-                            as={InputGroup.Prepend}
-                            variant="outline-secondary"
-                            title={this.state.placeType}
-                            onSelect={this.handlePlaceType}
-                            id="input-group-dropdown-1"
-                        >
-                            <Dropdown.Item href=""><span>Website Url</span></Dropdown.Item>
-                            <Dropdown.Item href=""><span>Application Name</span></Dropdown.Item>
-                        </DropdownButton>
-                        <FormControl aria-describedby="basic-addon1" />
-                    </InputGroup> */}
+                <Form onSubmit={e => this.submitFormHandler(e)}>
                     <FormGroup>
                         <FormLabel>Website url/ Application name</FormLabel>
-                        <FormControl type="text" className="form-control" />
+                        <FormControl 
+                            type="text" 
+                            name="name"
+                            className="form-control"
+                            onChange={e => this.changeHandler(e)} 
+                        />
                     </FormGroup>
                     <FormGroup>
                         <FormLabel>Email/ Username</FormLabel>
-                        <FormControl type="text" className="form-control" />
+                        <FormControl 
+                            type="text" 
+                            name="auth"
+                            className="form-control"
+                            onChange={e => this.changeHandler(e)}  
+                        />
                     </FormGroup>
                     <FormGroup>
                         <FormLabel>Password</FormLabel>
-                        <FormControl type="password" className="form-control" />
+                        <FormControl 
+                            type="password" 
+                            name="password"
+                            className="form-control" 
+                            onChange={e => this.changeHandler(e)} 
+                        />
                     </FormGroup>
                     <FormGroup className="create-wrapper">
-                        <Button className="create-btn">Add</Button>
+                        <FormControl 
+                            type="submit" 
+                            className="create-btn"
+                            value="Add"
+                        />
                     </FormGroup>
                 </Form>
             </Card.Body>
