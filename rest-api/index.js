@@ -15,9 +15,9 @@ app.use(cors({
 
 app.use('/api', apiRouter);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 9000;
 
 app.listen(port, function() {
-    console.log('App is listening on port 9000');
+    console.log(`App is listening on port ${port}`);
 })
 

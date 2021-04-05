@@ -2,6 +2,7 @@ import './Register.scss';
 import { Form, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import services from '../../../services';
 
 function Register() {
     const [email, setEmail] = useState();
@@ -10,7 +11,11 @@ function Register() {
 
     function submitFormHandler(event) {
         event.preventDefault();
-        console.log(email, password, repeatPassword);
+
+        services.userService.register(email, password, repeatPassword)
+        .then((data) => {
+            console.log(data, 'success');
+        })
     }   
 
     return (
