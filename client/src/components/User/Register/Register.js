@@ -3,20 +3,18 @@ import { Form, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import services from '../../../services';
-import { useCookies } from 'react-cookie';
 
 function Register() {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [repeatPassword, setRepeatPassword] = useState();
-    const [cookies, setCookie] = useCookies(['auth-cookie']);
 
     function submitFormHandler(event) {
         event.preventDefault();
 
         services.userService.register(email, password, repeatPassword)
         .then(data => {
-            setCookie('auth-cookie', data.token);
+            console.log(data);
         })
     }   
 

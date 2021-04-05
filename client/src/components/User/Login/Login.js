@@ -1,7 +1,8 @@
 import './Login.scss';
-import { Form, FormGroup, FormControl, FormLabel, Button } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import services from '../../../services';
 
 function Login() {
     const [email, setEmail] = useState();
@@ -9,7 +10,11 @@ function Login() {
 
     function submitFormHandler(event) {
         event.preventDefault();
-        console.log(email, password);
+
+        services.userService.login(email, password)
+        .then(data => {
+            console.log(data);
+        })
     }
 
     return (

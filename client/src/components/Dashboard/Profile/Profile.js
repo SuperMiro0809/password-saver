@@ -5,7 +5,7 @@ function Profile() {
     return (
         <Card.Body className="profile">
             <article>
-                <img src="/profile.png" height="200" />
+                <img src="/profile.png" height="200" alt="Profile" />
             </article>
             <article className="email-wrapper">
                 <p className="profile-email">email@abv.bg</p>

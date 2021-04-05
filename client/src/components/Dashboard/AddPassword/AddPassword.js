@@ -16,9 +16,7 @@ class AddPassword extends Component {
     }
 
     changeHandler(e) {
-        const el = e.target.name;
-
-        this.setState({ el: e.target.value })
+        this.setState({ [e.target.name]: e.target.value })
     }
 
     submitFormHandler(e) {
