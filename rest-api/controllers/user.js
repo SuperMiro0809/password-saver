@@ -17,7 +17,7 @@ module.exports = {
 
             res.cookie(authCookieName, token, { httpOnly: true })
             res.status(200)
-                .send(user);
+                .send({token});
         })
         .catch(err => {
             if (err.name === 'MongoError' && err.code === 11000) {

@@ -15,6 +15,7 @@ function register(email, password, repeatPassword) {
         },
         body: JSON.stringify(data)
     })
+    .then(res => res.json())
 }
 const service = {
     register
