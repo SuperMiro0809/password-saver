@@ -7,9 +7,11 @@ import Register from './components/User/Register/Register';
 import About from './components/About/About';
 import Dashboard from './components/Dashboard/Dashboard';
 import AuthContext from './AuthContext';
+import Cookies from 'js-cookie';
 
 function App() {
   const [user, setUser] = useState(null);
+  console.log(Cookies.get('auth_cookie'));
 
   return (
     <div className="App">

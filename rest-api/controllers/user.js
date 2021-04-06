@@ -15,7 +15,7 @@ module.exports = {
 
                 const token = jwt.sign({ id: user._id, email }, jwtSecret, { expiresIn: '1d' });
 
-                res.cookie(authCookieName, token, { httpOnly: true })
+                res.cookie(authCookieName, token)
                 res.status(200)
                     .send({ token });
             })
@@ -49,7 +49,7 @@ module.exports = {
 
                 const token = jwt.sign({ id: user._id, email }, jwtSecret, { expiresIn: '1d' });
 
-                res.cookie(authCookieName, token, { httpOnly: true })
+                res.cookie(authCookieName, token)
                 res.status(200)
                     .send(user);
             })
