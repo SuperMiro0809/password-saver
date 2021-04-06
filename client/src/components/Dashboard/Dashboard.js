@@ -1,6 +1,4 @@
 import './Dashboard.scss';
-import { useContext } from 'react';
-import AuthContext from '../../AuthContext';
 import { Switch, Route } from 'react-router-dom';
 import Header from '../Header/Header';
 import DashboardDefault from './DashboardDefault/DashboardDefault';
@@ -9,8 +7,6 @@ import AddPassword from './AddPassword/AddPassword';
 import Profile from './Profile/Profile';
 
 function Dashboard() {
-    let [user] = useContext(AuthContext);
-    console.log(user);
     return (
         <main className="Dashboard">
             <Header />

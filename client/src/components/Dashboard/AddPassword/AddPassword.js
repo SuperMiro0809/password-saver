@@ -1,6 +1,7 @@
 import './AddPassword.scss';
 import { Component } from 'react';
 import { Card, Form, FormControl, FormLabel, FormGroup } from 'react-bootstrap';
+import services from '../../../services';
 
 class AddPassword extends Component {
 
@@ -22,7 +23,10 @@ class AddPassword extends Component {
     submitFormHandler(e) {
         e.preventDefault();
 
-        console.log(this.state);
+        services.passwordService.AddPassword(this.state.name, this.state.auth, this.state.password)
+        .then(data => {
+            console.log(data);
+        })
     }
 
     render() {
