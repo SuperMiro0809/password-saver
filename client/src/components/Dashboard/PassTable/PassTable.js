@@ -1,7 +1,24 @@
 import './PassTable.scss';
+import { useContext, useState, useEffect } from 'react';
+import AuthContext from '../../../AuthContext';
 import { Table, Card, Form, Row, Col } from 'react-bootstrap';
+import services from '../../../services';
+import PassTableItem from './PassTableItem/PassTableItem';
 
 function PassTable() {
+    const [user] = useContext(AuthContext);
+    const [passwords, setPasswords] = useState([]);
+    const jsonPasswords = JSON.stringify(passwords);
+    const jsonUser = JSON.stringify(user);
+
+    useEffect(() => {
+        services.passwordService.getPasswords(user._id)
+        .then(data => {
+            setPasswords(data);
+            console.log(data);
+        })
+    }, [jsonPasswords, jsonUser])
+    console.log(user);
     return (
         <Card.Body className="component-content">
             <Form>
@@ -18,25 +35,15 @@ function PassTable() {
             <Table hover className="password-table">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Website/Application</th>
                         <th>Email/Username</th>
                         <th>Password</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
+                    {passwords.map(x =>
+                        <PassTableItem key={x._id} name={x.name} auth={x.auth} password={x.password} />
+                    )}
                 </tbody>
             </Table>
         </Card.Body>

@@ -7,7 +7,6 @@ import Register from './components/User/Register/Register';
 import About from './components/About/About';
 import Dashboard from './components/Dashboard/Dashboard';
 import AuthContext from './AuthContext';
-import Cookies from 'js-cookie';
 import services from './services';
 
 function App() {

@@ -4,7 +4,7 @@ const router = express.Router();
 const passwordController = require(path.join(__dirname, '../controllers/password'));
 const auth = require(path.join(__dirname, '../middlewares/auth'));
 
-router.get('/', passwordController.getAll);
+router.get('/:id', passwordController.getAll);
 
 router.post('/', auth, passwordController.create);
 

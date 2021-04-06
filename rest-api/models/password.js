@@ -19,7 +19,8 @@ const passwordSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    creatorId: { type: mongoose.Types.ObjectId, ref: 'user' }
 });
 
 passwordSchema.pre('save', function (next) {

@@ -1,5 +1,17 @@
 import services from './index';
 
+function getPasswords(id) {
+    return fetch(`${services.url}/password/${id}`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Access-Control-Allow-Origin': 'http://localhost:3000',
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(res => res.json())
+}
+
 function AddPassword(name, auth, password) {
     let data = {
         name: name,
@@ -28,6 +40,7 @@ function editPassword(id) {
 }
 
 const service = {
+    getPasswords,
     AddPassword,
     deletePassword,
     editPassword

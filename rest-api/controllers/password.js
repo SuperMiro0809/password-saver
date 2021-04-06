@@ -5,24 +5,28 @@ const userModel = require(path.join(__dirname, '../models/user'));
 module.exports = {
 
     getAll(req, res, next) {
+        const userId = req.params.id;
 
+        passwordModel.find({ creatorId: userId })
+        .then((passwords) => {
+            res.status(200)
+                .send(passwords);
+        })
+        .catch(next)
     },
 
     create(req, res, next) {
         const { name, auth, password } = req.body;
+        const userId = req.user._id;
 
-        passwordModel.create({ name, auth, password })
-        .then((pass) => {
-            const userId = req.user._id;
-            
-            userModel.update({ _id: userId }, { $push: { savedPassword: pass._id } })
-            .then(() => {
+        passwordModel.create({ name, auth, password, creatorId: userId })
+            .then((pass) => {
+
                 res.status(200)
-                .send({ message: 'Success' })
+                    .send(pass)
+
             })
             .catch(next)
-        })
-        .catch(next)
     },
 
     edit(req, res, next) {
@@ -30,6 +34,6 @@ module.exports = {
     },
 
     delete(req, res, next) {
-        
+
     }
 }
