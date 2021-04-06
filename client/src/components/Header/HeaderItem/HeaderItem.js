@@ -14,8 +14,8 @@ function HeaderItem(props) {
 
             services.userService.logout()
             .then(data => {
-                setUser(null);
                 history.push('/');
+                setUser(null);
             })
         }
     }

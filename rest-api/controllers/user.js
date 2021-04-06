@@ -68,6 +68,17 @@ module.exports = {
     },
 
     profile(req, res, next) {
+        if(!req.user) {
+            res.status(401).send({ message: 'Not logged' })
+        }else {
+            const { _id } = req.user;
+
+            userModel.findOne({ _id })
+            .then((user) => {
+                res.status(200)
+                    .send(user);
+            })
+        }       
 
     }
 }

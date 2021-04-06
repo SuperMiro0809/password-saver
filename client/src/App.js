@@ -1,5 +1,5 @@
 import './App.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Main from './components/Main/Main';
 import Login from './components/User/Login/Login';
@@ -8,10 +8,21 @@ import About from './components/About/About';
 import Dashboard from './components/Dashboard/Dashboard';
 import AuthContext from './AuthContext';
 import Cookies from 'js-cookie';
+import services from './services';
 
 function App() {
-  const [user, setUser] = useState(null);
-  console.log(Cookies.get('auth_cookie'));
+  const [user, setUser] = useState({});
+  const jsonUser = JSON.stringify(user);
+
+  useEffect(() => {
+    services.userService.profile()
+    .then(data => {
+        if(!data.message) {
+            setUser(data);
+            console.log(user)
+        }
+    })
+  }, [ jsonUser ])
 
   return (
     <div className="App">

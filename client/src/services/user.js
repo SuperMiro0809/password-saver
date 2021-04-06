@@ -49,10 +49,23 @@ function logout() {
     .then(res => res.json())
 }
 
+function profile() {
+    return fetch(`${services.url}/user/profile`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Access-Control-Allow-Origin': 'http://localhost:3000',
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(res => res.json())
+}
+
 const service = {
     register,
     login,
-    logout
+    logout,
+    profile
 }
 
 export default service;
