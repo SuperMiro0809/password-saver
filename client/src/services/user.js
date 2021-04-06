@@ -37,9 +37,22 @@ function login(email, password) {
     .then(res => res.json());
 }
 
+function logout() {
+    return fetch(`${services.url}/user/logout`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Access-Control-Allow-Origin': 'http://localhost:3000',
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(res => res.json())
+}
+
 const service = {
     register,
-    login
+    login,
+    logout
 }
 
 export default service;

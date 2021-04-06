@@ -57,7 +57,14 @@ module.exports = {
     },
 
     logout(req, res, next) {
+        const token = req.cookies[authCookieName] || req.headers[authHeaderName] || '';
+        if (!token) {
+            res.status(401);
+            return;
+        }
 
+        res.clearCookie(authCookieName);
+        res.status(200).send({ message: 'Logged out!' })
     },
 
     profile(req, res, next) {
