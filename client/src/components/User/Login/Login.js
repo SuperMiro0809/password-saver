@@ -1,19 +1,24 @@
 import './Login.scss';
 import { Form, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import AuthContext from '../../../AuthContext';
 import services from '../../../services';
 
-function Login() {
+function Login({
+    history
+}) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    let [user, setUser] = useContext(AuthContext);
 
     function submitFormHandler(event) {
         event.preventDefault();
 
         services.userService.login(email, password)
         .then(data => {
-            console.log(data);
+            setUser(data);
+            history.push('/dashboard');
         })
     }
 
