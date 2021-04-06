@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    savedPassword: [{ type: mongoose.Types.ObjectId, ref: 'password' }]
 });
 
 userSchema.methods = {
