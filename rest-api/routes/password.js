@@ -6,6 +6,8 @@ const auth = require(path.join(__dirname, '../middlewares/auth'));
 
 router.get('/:id', auth, passwordController.getAll);
 
+router.get('/password/:id', auth, passwordController.getPasswordById);
+
 router.post('/', auth, passwordController.create);
 
 router.put('/:id', auth, passwordController.edit);

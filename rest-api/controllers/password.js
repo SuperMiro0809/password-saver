@@ -22,6 +22,17 @@ module.exports = {
         .catch(next)
     },
 
+    getPasswordById(req, res, next) {
+        const passwordId = req.params.id;
+
+        passwordModel.findById(passwordId)
+        .then((password) => {
+            res.status(200)
+            .send(password)
+        })
+        .catch(next)
+    },
+
     create(req, res, next) {
         const { name, auth, password } = req.body;
         const userId = req.user._id;
@@ -37,7 +48,25 @@ module.exports = {
     },
 
     edit(req, res, next) {
+        const { name, auth, password } = req.body;
+        const passwordId = req.params.id;
+        const userId = req.user._id;
 
+        passwordModel.findById(passwordId)
+        .then((pass) => {
+            if(pass.creatorId.toString() !== userId) {
+                next();
+                return;
+            }
+
+            passwordModel.findByIdAndUpdate({ _id: passwordId }, { name, auth, password })
+            .then(() => {
+                res.status(200)
+                    .send({ message: 'Updated successfully!' })
+            })
+            .catch(next);
+        })
+        .catch(next)
     },
 
     delete(req, res, next) {

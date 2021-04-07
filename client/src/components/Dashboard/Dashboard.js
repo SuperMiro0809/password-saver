@@ -5,6 +5,7 @@ import DashboardDefault from './DashboardDefault/DashboardDefault';
 import PassTable from './PassTable/PassTable';
 import AddPassword from './AddPassword/AddPassword';
 import Profile from './Profile/Profile';
+import EditPassword from './EditPassword/EditPassword';
 
 function Dashboard() {
     return (
@@ -20,6 +21,11 @@ function Dashboard() {
                     <Route path="/dashboard/add-password">
                         <DashboardDefault title="Add Password">
                             <AddPassword />
+                        </DashboardDefault>
+                    </Route>
+                    <Route path="/dashboard/edit-password/:id">
+                        <DashboardDefault title="Edit Password">
+                            <EditPassword />
                         </DashboardDefault>
                     </Route>
                     <Route path="/dashboard/profile">
