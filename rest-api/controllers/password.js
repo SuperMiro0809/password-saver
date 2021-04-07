@@ -6,8 +6,15 @@ module.exports = {
 
     getAll(req, res, next) {
         const userId = req.params.id;
+        const { name } = req.query;
 
-        passwordModel.find({ creatorId: userId })
+        let query = {};
+        query.creatorId = userId;
+        if(name) {
+            query.name = RegExp(name, 'i');
+        }
+
+        passwordModel.find(query)
         .then((passwords) => {
             res.status(200)
                 .send(passwords);

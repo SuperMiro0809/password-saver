@@ -15,9 +15,8 @@ function PassTable() {
         services.passwordService.getPasswords(user._id)
         .then(data => {
             setPasswords(data);
-            console.log(data);
         })
-    }, [jsonPasswords, jsonUser])
+    }, [jsonUser])
 
     function submitFilterFormHandler(e) {
         e.preventDefault();
@@ -53,7 +52,7 @@ function PassTable() {
                 <tbody>
                     {passwords.length != 0 ? 
                         passwords.map(x =>
-                            <PassTableItem key={x._id} name={x.name} auth={x.auth} password={x.password} />
+                            <PassTableItem key={x._id} name={x.name} auth={x.auth} password={x.password} id={x._id} />
                         ): 
                         <tr className="no-info">
                             <td colSpan="4">No information</td>

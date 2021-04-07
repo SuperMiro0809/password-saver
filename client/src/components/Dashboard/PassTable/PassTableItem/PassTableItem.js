@@ -1,6 +1,17 @@
 import './PassTableItem.scss';
+import services from '../../../../services';
 
 function PassTableItem(props) {
+
+    function deleteButtonHandler(e) {
+        console.log(props.id)
+
+        services.passwordService.deletePassword(props.id)
+        .then(data => {
+            
+        })
+    }   
+
     return (
         <tr className="pass-tr">
             <td>{props.name}</td>
@@ -10,7 +21,7 @@ function PassTableItem(props) {
                 <button className="edit">
                     <i className="fas fa-pencil-alt" aria-hidden="true"></i>
                 </button>
-                <button className="remove">
+                <button className="remove" onClick={e => deleteButtonHandler(e)}>
                     <i className="fa fa-trash"></i>
                 </button>
             </td >

@@ -1,5 +1,6 @@
 import './AddPassword.scss';
 import { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Card, Form, FormControl, FormLabel, FormGroup } from 'react-bootstrap';
 import services from '../../../services';
 
@@ -12,7 +13,8 @@ class AddPassword extends Component {
             placeType: 'Website Url',
             name: '',
             auth: '',
-            password: ''
+            password: '',
+            redirect: false
         }
     }
 
@@ -25,11 +27,15 @@ class AddPassword extends Component {
 
         services.passwordService.AddPassword(this.state.name, this.state.auth, this.state.password)
         .then(data => {
-            console.log(data);
+            this.setState({ redirect: true });
         })
     }
 
     render() {
+        if(this.state.redirect) {
+            return <Redirect to="/dashboard"/>
+        }
+
         return (
             <Card.Body className="component-content">
                 <Form onSubmit={e => this.submitFormHandler(e)}>
