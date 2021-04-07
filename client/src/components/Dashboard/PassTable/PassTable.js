@@ -1,7 +1,7 @@
 import './PassTable.scss';
 import { useContext, useState, useEffect } from 'react';
 import AuthContext from '../../../AuthContext';
-import { Table, Card, Form, Row, Col } from 'react-bootstrap';
+import { Table, Card, Form, Row, FormGroup } from 'react-bootstrap';
 import services from '../../../services';
 import PassTableItem from './PassTableItem/PassTableItem';
 
@@ -18,32 +18,47 @@ function PassTable() {
             console.log(data);
         })
     }, [jsonPasswords, jsonUser])
-    console.log(user);
+
+    function submitFilterFormHandler(e) {
+        e.preventDefault();
+
+        services.passwordService.filterPasswords(user._id, e.target.name.value)
+        .then(data => {
+            setPasswords(data);
+        })
+    }
+
     return (
         <Card.Body className="component-content">
-            <Form>
+            <Form onSubmit={e => submitFilterFormHandler(e)}>
                 <Row>
-                    <Col>
-                        <Form.Control placeholder="Website/Application" />
-                    </Col>
-                    <Col>
-                        <Form.Control type="submit" />
-                    </Col>
+                    <FormGroup className="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-4">
+                        <Form.Control type="text" name="name" placeholder="Website/Application" />
+                    </FormGroup>
+                    <FormGroup className="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-4">
+                        <Form.Control className="filter-btn" type="submit" />
+                    </FormGroup>
                 </Row>
             </Form>
 
             <Table hover className="password-table">
                 <thead>
                     <tr>
-                        <th>Website/Application</th>
-                        <th>Email/Username</th>
-                        <th>Password</th>
+                        <th scope="col">Website/Application</th>
+                        <th scope="col">Email/Username</th>
+                        <th scope="col">Password</th>
+                        <th scope="col">Operations</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {passwords.map(x =>
-                        <PassTableItem key={x._id} name={x.name} auth={x.auth} password={x.password} />
-                    )}
+                    {passwords.length != 0 ? 
+                        passwords.map(x =>
+                            <PassTableItem key={x._id} name={x.name} auth={x.auth} password={x.password} />
+                        ): 
+                        <tr className="no-info">
+                            <td colSpan="4">No information</td>
+                        </tr>
+                    }
                 </tbody>
             </Table>
         </Card.Body>

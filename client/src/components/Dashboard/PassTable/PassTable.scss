@@ -2,5 +2,61 @@
 
     .password-table {
         margin-top: 40px;
+
+        .no-info {
+            text-align: center;
+        }
+
+        td {
+            word-break:break-all;
+        }
+    }
+
+    .filter-btn {
+        background-color: rgba(22, 204, 71, 0.8);
+        border: none;
+        outline: none;
+    }
+
+    .filter-btn:hover {
+        background-color: rgba(245, 158, 20, 0.8);
+    }
+
+    @media 
+    only screen and (max-width: 780px),
+    (min-device-width: 768px) and (max-device-width: 1024px)  {
+
+        table, thead, tbody, th, td, tr { 
+            display: block; 
+        }
+        
+        thead tr { 
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+        
+        tr { border: 1px solid #ccc; }
+        
+        td { 
+            border: none;
+            border-bottom: 1px solid #eee; 
+            position: relative;
+            padding-left: 50%; 
+        }
+        
+        td:before {
+            font-weight: bold; 
+            top: 6px;
+            left: 6px;
+            width: 45%; 
+            padding-right: 10px; 
+            white-space: nowrap;
+        }
+        
+        td:nth-of-type(1):before { content: "Website/Application"; }
+        td:nth-of-type(2):before { content: "Email/Username"; }
+        td:nth-of-type(3):before { content: "Password"; }
+        td:nth-of-type(4):before { content: "Operations"; }
     }
 }

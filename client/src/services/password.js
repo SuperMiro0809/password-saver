@@ -12,6 +12,18 @@ function getPasswords(id) {
     .then(res => res.json())
 }
 
+function filterPasswords(id, name) {
+    return fetch(`${services.url}/password/${id}?name=${name}`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Access-Control-Allow-Origin': 'http://localhost:3000',
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(res => res.json())
+}
+
 function AddPassword(name, auth, password) {
     let data = {
         name: name,
@@ -41,6 +53,7 @@ function editPassword(id) {
 
 const service = {
     getPasswords,
+    filterPasswords,
     AddPassword,
     deletePassword,
     editPassword
