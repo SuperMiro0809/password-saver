@@ -43,8 +43,16 @@ function AddPassword(name, auth, password) {
     .then(res => res.json())
 }
 
-function deletePassword(id) {
-
+function deletePassword(passwordId) {
+    return fetch(`${services.url}/password/${passwordId}`, {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+            'Access-Control-Allow-Origin': 'http://localhost:3000',
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(res => res.json())
 }
 
 function editPassword(id) {

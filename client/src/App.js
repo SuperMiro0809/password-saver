@@ -18,7 +18,6 @@ function App() {
     .then(data => {
         if(!data.message) {
             setUser(data);
-            console.log(user)
         }
     })
   }, [ jsonUser ])

@@ -10,14 +10,14 @@ function Login({
 }) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    let [user, setUser] = useContext(AuthContext);
+    let context = useContext(AuthContext);
 
     function submitFormHandler(event) {
         event.preventDefault();
 
         services.userService.login(email, password)
         .then(data => {
-            setUser(data);
+            context[1](data);
             history.push('/dashboard');
         })
     }

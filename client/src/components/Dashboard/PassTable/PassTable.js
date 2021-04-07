@@ -4,27 +4,30 @@ import AuthContext from '../../../AuthContext';
 import { Table, Card, Form, Row, FormGroup } from 'react-bootstrap';
 import services from '../../../services';
 import PassTableItem from './PassTableItem/PassTableItem';
+import PassContext from './PassContext';
 
 function PassTable() {
     const [user] = useContext(AuthContext);
     const [passwords, setPasswords] = useState([]);
-    const jsonPasswords = JSON.stringify(passwords);
-    const jsonUser = JSON.stringify(user);
+    //const jsonPasswords = JSON.stringify(passwords);
+    //const jsonUser = JSON.stringify(user);
 
     useEffect(() => {
-        services.passwordService.getPasswords(user._id)
-        .then(data => {
-            setPasswords(data);
-        })
-    }, [jsonUser])
+        if(user._id) {
+            services.passwordService.getPasswords(user._id)
+                .then(data => {
+                    setPasswords(data);
+                })
+        }    
+    }, [user._id])
 
     function submitFilterFormHandler(e) {
         e.preventDefault();
 
         services.passwordService.filterPasswords(user._id, e.target.name.value)
-        .then(data => {
-            setPasswords(data);
-        })
+            .then(data => {
+                setPasswords(data);
+            })
     }
 
     return (
@@ -50,14 +53,16 @@ function PassTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {passwords.length != 0 ? 
-                        passwords.map(x =>
-                            <PassTableItem key={x._id} name={x.name} auth={x.auth} password={x.password} id={x._id} />
-                        ): 
-                        <tr className="no-info">
-                            <td colSpan="4">No information</td>
-                        </tr>
-                    }
+                    <PassContext.Provider value={[passwords, setPasswords]}>
+                        {passwords.length !== 0 ?
+                            passwords.map(x =>
+                                <PassTableItem key={x._id} name={x.name} auth={x.auth} password={x.password} id={x._id} />
+                            ) :
+                            <tr className="no-info">
+                                <td colSpan="4">No information</td>
+                            </tr>
+                        }
+                    </PassContext.Provider>
                 </tbody>
             </Table>
         </Card.Body>

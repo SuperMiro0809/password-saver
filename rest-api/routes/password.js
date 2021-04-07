@@ -4,12 +4,12 @@ const router = express.Router();
 const passwordController = require(path.join(__dirname, '../controllers/password'));
 const auth = require(path.join(__dirname, '../middlewares/auth'));
 
-router.get('/:id', passwordController.getAll);
+router.get('/:id', auth, passwordController.getAll);
 
 router.post('/', auth, passwordController.create);
 
-router.put('/edit/:id', passwordController.edit);
+router.put('/:id', auth, passwordController.edit);
 
-router.delete('/delete/:id', passwordController.delete);
+router.delete('/:id', auth, passwordController.delete);
 
 module.exports = router;

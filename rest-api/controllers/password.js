@@ -41,6 +41,29 @@ module.exports = {
     },
 
     delete(req, res, next) {
+        const passwordId = req.params.id;
+        const userId = req.user._id;
 
+        passwordModel.findById(passwordId)
+        .then((password) => {
+            if(password.creatorId.toString() !== userId) {
+                next();
+                return;
+            }
+
+            passwordModel.findByIdAndDelete(passwordId, function(err) {
+                if(err) {
+                    next(err);
+                    return;
+                }
+
+                passwordModel.find({ creatorId: userId })
+                .then((passwords) => {
+                    res.status(200)
+                        .send(passwords);
+                })
+                .catch(next)
+            })
+        })
     }
 }

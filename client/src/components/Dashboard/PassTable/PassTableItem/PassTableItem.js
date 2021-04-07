@@ -1,14 +1,15 @@
 import './PassTableItem.scss';
+import { useContext } from 'react';
+import PassContext from '../PassContext';
 import services from '../../../../services';
 
 function PassTableItem(props) {
+    const context = useContext(PassContext);
 
     function deleteButtonHandler(e) {
-        console.log(props.id)
-
         services.passwordService.deletePassword(props.id)
         .then(data => {
-            
+            context[1](data);
         })
     }   
 

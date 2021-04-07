@@ -6,7 +6,7 @@ import services from '../../../services';
 
 function HeaderItem(props) {
     const history = useHistory();
-    const [user, setUser] = useContext(AuthContext);
+    const context = useContext(AuthContext);
 
     function clickHandler(e) {
         if(props.text === 'Logout') {
@@ -15,7 +15,7 @@ function HeaderItem(props) {
             services.userService.logout()
             .then(data => {
                 history.push('/');
-                setUser(null);
+                context[1](null);
             })
         }
     }
