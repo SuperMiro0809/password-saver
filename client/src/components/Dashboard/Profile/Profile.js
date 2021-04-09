@@ -1,6 +1,7 @@
 import './Profile.scss';
 import { useContext, Fragment, useState } from 'react';
 import AuthContext from '../../../contexts/AuthContext';
+import MessageContext from '../../../contexts/MessageContext';
 import { Card, Button } from 'react-bootstrap';
 import EmailForm from './EmailForm/EmailForm';
 import PasswordForm from './PasswordForm/PasswordForm';
@@ -10,9 +11,9 @@ function Profile() {
     const [formType, setFormType] = useState();
 
     function changeFormType(e, type) {
-        if(type === formType) {
+        if (type === formType) {
             setFormType(null);
-        }else {
+        } else {
             setFormType(type);
         }
     }
@@ -27,15 +28,32 @@ function Profile() {
                     <p className="profile-email">{user.email}</p>
                 </article>
                 <article className="profile-options">
-                    <Button onClick={e => changeFormType(e, 'password')}>{ formType !== 'password' ? 'Change Password' : 'Close' }</Button>
-                    <Button onClick={e => changeFormType(e, 'email')}>{ formType !== 'email' ? 'Change Email' : 'Close' }</Button>
+                    <Button onClick={e => changeFormType(e, 'password')}>{formType !== 'password' ? 'Change Password' : 'Close'}</Button>
+                    <Button onClick={e => changeFormType(e, 'email')}>{formType !== 'email' ? 'Change Email' : 'Close'}</Button>
                 </article>
             </Card.Body>
             <Card.Footer>
-                { formType ? 
-                    formType === 'password' ? 
-                    <PasswordForm /> :
-                    <EmailForm />
+                {formType ?
+                    formType === 'password' ?
+                        <AuthContext.Consumer>
+                            {(user) => (
+                                <MessageContext.Consumer>
+                                    {(message) => (
+                                        <PasswordForm user={user} message={message} />
+                                    )}
+                                </MessageContext.Consumer>
+                            )}
+                        </AuthContext.Consumer>
+                        :
+                        <AuthContext.Consumer>
+                            {(user) => (
+                                <MessageContext.Consumer>
+                                    {(message) => (
+                                        <EmailForm user={user} message={message} />
+                                    )}
+                                </MessageContext.Consumer>
+                            )}
+                        </AuthContext.Consumer>
                     :
                     null
                 }

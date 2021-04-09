@@ -1,7 +1,8 @@
 import './PasswordForm.scss';
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { Form, FormGroup, FormLabel, FormControl } from 'react-bootstrap';
-import AuthContext from '../../../../contexts/AuthContext';
+import services from '../../../../services';
 
 class PasswordForm extends React.Component {
     constructor(props) {
@@ -18,13 +19,32 @@ class PasswordForm extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.context[0]);
+        console.log(this.props);
     }
 
     submitFormHandler(e) {
         e.preventDefault();
 
-        console.log(this.state);
+        services.userService.changePassword(this.props.user[0].email, this.state.password)
+        .then(data => {
+            services.userService.logout()
+            .then(() => {
+                this.props.message[1]({ status: 'success', text: data.message });
+                const interval = setInterval(function () {
+                    this.props.message[1]('');
+                    this.props.history.push('/login');
+                    this.props.user[1](null);
+                    clearInterval(interval);
+                }.bind(this), 1000)
+            })
+        })
+        .catch(err => {
+            this.props.message[1]({ status: 'error', text: err.message});
+            const interval = setInterval(function () {
+                this.props.message[1]('');
+                clearInterval(interval);
+            }, 2000)
+        })
     }
     
     changeHandler(e) {
@@ -80,6 +100,4 @@ class PasswordForm extends React.Component {
     }
 }
 
-PasswordForm.contextType = AuthContext;
-
-export default PasswordForm;
+export default withRouter(PasswordForm);

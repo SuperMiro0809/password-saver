@@ -58,6 +58,7 @@ function Login({
                         type="submit"
                         className="login-btn"
                         value="Login"
+                        disabled={!email || !password}
                     />
                     <div className="options">
                         <Link to="/register" >Don't have an account?</Link>
