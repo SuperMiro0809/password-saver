@@ -111,8 +111,19 @@ module.exports = {
         userModel.findByIdAndUpdate({ _id: userdId }, { email })
             .then(() => {
                 res.status(200)
-                    .send({ message: 'Updated successfully!' })
+                    .send({ message: 'Email changed' })
             })
-            .catch(next);
+            .catch(err => {
+                if (err.name === 'MongoError' && err.code === 11000) {
+                    let field = err.message.split("index: ")[1];
+                    field = field.split(" dup key")[0];
+                    field = field.substring(0, field.lastIndexOf("_"));
+
+                    res.status(409)
+                        .send({ message: `This ${field} is already registered!` });
+                    return;
+                }
+                next(err);
+            });
     }
 }

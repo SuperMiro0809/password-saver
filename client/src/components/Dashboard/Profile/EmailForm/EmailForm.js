@@ -19,24 +19,36 @@ class EmailForm extends React.Component {
 
     submitFormHandler(e) {
         e.preventDefault();
-        
+
         services.userService.changeEmail(this.state.email)
-        .then(data => {
-            console.log(data);
-            services.userService.logout()
-            .then(() => {
-                this.props.history.push('/login');
-                this.context[1](null);
+            .then(data => {
+                services.userService.logout()
+                    .then(() => {
+                        this.props.message[1]({ status: 'success', text: data.message });
+                        const interval = setInterval(function () {
+                            this.props.message[1]('');
+                            this.props.history.push('/login');
+                            this.props.user[1](null);
+                            clearInterval(interval);
+                        }.bind(this), 1000)
+                    })
+
             })
-        })
+            .catch(err => {
+                this.props.message[1]({ status: 'error', text: err.message });
+                const interval = setInterval(function () {
+                    this.props.message[1]('');
+                    clearInterval(interval);
+                }.bind(this), 2000)
+            })
     }
 
     changeHandler(e) {
         this.setState({ email: e.target.value });
 
-        if(!/^[\w-\.]+@[\w-\.]+\.[\w-]{2,4}$/.test(e.target.value)) {
+        if (!/^[\w-\.]+@[\w-\.]+\.[\w-]{2,4}$/.test(e.target.value)) {
             this.setState({ errors: { email: 'Email is not valid' } })
-        }else {
+        } else {
             this.setState({ errors: { email: '' } })
         }
     }

@@ -111,7 +111,13 @@ function changeEmail(email) {
         },
         body: JSON.stringify(data)
     })
-    .then(res => res.json())
+    .then(res => {
+        if(res.status === 200) {
+            return res.json();
+        }else if(res.status === 409) {
+            throw new Error('This email is already registered!');
+        }
+    })
 }
 
 const service = {
