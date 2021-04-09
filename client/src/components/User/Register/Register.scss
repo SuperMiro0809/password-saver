@@ -13,15 +13,30 @@
         margin-bottom: 20px;
     }
 
+    .form-group {
+        margin-bottom: 2px;
+    }
+
+    .error {
+        color: red;
+    }
+
     .register-btn {
         background-color: rgba(22, 204, 71, 0.8);
         border: none;
         outline: none;
         flex-basis: 100px;
+        margin-top: 10px;
     }
 
     .register-btn:hover {
         background-color: rgba(245, 158, 20, 0.8);
+    }
+
+    .register-btn:disabled,
+    .register-btn:disabled:hover {
+        background-color: #DDDDDD;
+        cursor: default;
     }
 
     .btn-wrapper {
