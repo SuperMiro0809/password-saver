@@ -2,7 +2,7 @@ import './EmailForm.scss';
 import React from 'react';
 import { withRouter } from 'react-router-dom'
 import { Form, FormGroup, FormLabel, FormControl } from 'react-bootstrap';
-import AuthContext from '../../../../AuthContext';
+import AuthContext from '../../../../contexts/AuthContext';
 import services from '../../../../services';
 
 class EmailForm extends React.Component {

@@ -1,7 +1,7 @@
 import './PassTableItem.scss';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import PassContext from '../PassContext';
+import PassContext from '../../../../contexts/PassContext';
 import services from '../../../../services';
 
 function PassTableItem(props) {

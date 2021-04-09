@@ -1,10 +1,10 @@
 import './PassTable.scss';
 import { useContext, useState, useEffect } from 'react';
-import AuthContext from '../../../AuthContext';
+import AuthContext from '../../../contexts/AuthContext';
 import { Table, Card, Form, Row, FormGroup } from 'react-bootstrap';
 import services from '../../../services';
 import PassTableItem from './PassTableItem/PassTableItem';
-import PassContext from './PassContext';
+import PassContext from '../../../contexts/PassContext';
 
 function PassTable() {
     const [user] = useContext(AuthContext);

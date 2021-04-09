@@ -8,8 +8,9 @@ import About from './components/About/About';
 import Dashboard from './components/Dashboard/Dashboard';
 import ForgotPassword from './components/User/ForgotPassword/ForgotPassword';
 import Message from './components/Message/Message';
-import AuthContext from './AuthContext';
+import AuthContext from './contexts/AuthContext';
 import services from './services';
+import isAuth from './hoc/isAuth';
 
 function App() {
   const [user, setUser] = useState({});
@@ -17,12 +18,12 @@ function App() {
 
   useEffect(() => {
     services.userService.profile()
-    .then(data => {
-        if(!data.message) {
-            setUser(data);
+      .then(data => {
+        if (!data.message) {
+          setUser(data);
         }
-    })
-  }, [ jsonUser ])
+      })
+  }, [jsonUser])
 
   return (
     <div className="App">
@@ -41,8 +42,8 @@ function App() {
       {/* <Message status="error" message="test" /> */}
       <AuthContext.Provider value={[user, setUser]}>
         <Switch>
-          <Route path="/" component={Main} exact/>
-          <Route path="/dashboard" component={Dashboard}/>
+          <Route path="/" component={Main} exact />
+          <Route path="/dashboard" component={Dashboard} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/forgot-password" component={ForgotPassword} />

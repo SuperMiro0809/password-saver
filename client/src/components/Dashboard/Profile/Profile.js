@@ -1,6 +1,6 @@
 import './Profile.scss';
 import { useContext, Fragment, useState } from 'react';
-import AuthContext from '../../../AuthContext';
+import AuthContext from '../../../contexts/AuthContext';
 import { Card, Button } from 'react-bootstrap';
 import EmailForm from './EmailForm/EmailForm';
 import PasswordForm from './PasswordForm/PasswordForm';

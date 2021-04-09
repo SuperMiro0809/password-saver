@@ -1,6 +1,6 @@
 import './HeaderItem.scss';
 import { useContext } from 'react';
-import AuthContext from '../../../AuthContext';
+import AuthContext from '../../../contexts/AuthContext';
 import { NavLink, useHistory } from 'react-router-dom';
 import services from '../../../services';
 

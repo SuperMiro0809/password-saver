@@ -2,7 +2,6 @@ import './ForgotPassword.scss';
 import { Form, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import Message from '../../Message/Message';
 import services from '../../../services';
 
 function ForgotPassword({
@@ -27,11 +26,6 @@ function ForgotPassword({
     return (
         <div className="Forgot-password">
              <h2>Forgot Password</h2>
-             {error ? 
-                <Message status="error" message={error} />
-                :
-                null
-            }
             <Form onSubmit={e => submitFormHandler(e)}>
                 <FormGroup>
                     <FormLabel>Email</FormLabel>

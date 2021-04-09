@@ -1,7 +1,7 @@
 import './PasswordForm.scss';
 import React from 'react';
 import { Form, FormGroup, FormLabel, FormControl } from 'react-bootstrap';
-import AuthContext from '../../../../AuthContext';
+import AuthContext from '../../../../contexts/AuthContext';
 
 class PasswordForm extends React.Component {
     constructor(props) {

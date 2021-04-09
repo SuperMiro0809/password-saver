@@ -2,7 +2,7 @@ import './Login.scss';
 import { Form, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useState, useContext } from 'react';
-import AuthContext from '../../../AuthContext';
+import AuthContext from '../../../contexts/AuthContext';
 import services from '../../../services';
 
 function Login({
