@@ -1,20 +1,34 @@
 import './Register.scss';
+import { useState, useContext } from 'react';
 import { Form, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
+import AuthContext from '../../../contexts/AuthContext';
+import MessageContext from '../../../contexts/MessageContext';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import services from '../../../services';
 
-function Register() {
+function Register({
+    history
+}) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [repeatPassword, setRepeatPassword] = useState();
+    const userContext = useContext(AuthContext);
+    const messageContext = useContext(MessageContext);
 
     function submitFormHandler(event) {
         event.preventDefault();
 
         services.userService.register(email, password, repeatPassword)
         .then(data => {
-            console.log(data);
+            userContext[1](data);
+            history.push('/dashboard');
+        })
+        .catch(err => {
+            messageContext[1]({ status: 'error', text: err.message});
+            const interval = setInterval(function () {
+                messageContext[1]('');
+                clearInterval(interval);
+            }, 2000);
         })
     }   
 

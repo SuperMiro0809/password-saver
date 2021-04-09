@@ -2,6 +2,7 @@ import './Login.scss';
 import { Form, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useState, useContext } from 'react';
+import MessageContext from '../../../contexts/MessageContext';
 import AuthContext from '../../../contexts/AuthContext';
 import services from '../../../services';
 
@@ -10,15 +11,23 @@ function Login({
 }) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    let context = useContext(AuthContext);
+    let userContext = useContext(AuthContext);
+    const messageContext = useContext(MessageContext);
 
     function submitFormHandler(event) {
         event.preventDefault();
 
         services.userService.login(email, password)
         .then(data => {
-            context[1](data);
+            userContext[1](data);
             history.push('/dashboard');
+        })
+        .catch(err => {
+            messageContext[1]({ status: 'error', text: err.message});
+            const interval = setInterval(function () {
+                messageContext[1]('');
+                clearInterval(interval);
+            }, 2000);
         })
     }
 

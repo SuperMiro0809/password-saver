@@ -1,7 +1,8 @@
 import './ForgotPassword.scss';
+import { useState, useContext } from 'react';
 import { Form, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import MessageContext from '../../../contexts/MessageContext';
 import services from '../../../services';
 
 function ForgotPassword({
@@ -9,17 +10,26 @@ function ForgotPassword({
 }) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [error, setError] = useState();
+    const messageContext = useContext(MessageContext);
 
     function submitFormHandler(e) {
         e.preventDefault();
 
         services.userService.changePassword(email, password)
         .then(data => {
-            history.push('/login');
+            messageContext[1]({ status: 'success', text: data.message});
+            const interval = setTimeout(function () {
+                messageContext[1]('');
+                history.push('/login');
+                clearInterval(interval);
+            }, 2000);
         })
         .catch(err => {
-            setError(err.message)
+            messageContext[1]({ status: 'error', text: err.message});
+            const interval = setInterval(function () {
+                messageContext[1]('');
+                clearInterval(interval);
+            }, 2000)
         })
     }
 

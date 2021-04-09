@@ -8,13 +8,16 @@ import About from './components/About/About';
 import Dashboard from './components/Dashboard/Dashboard';
 import ForgotPassword from './components/User/ForgotPassword/ForgotPassword';
 import Message from './components/Message/Message';
+import MessageContext from './contexts/MessageContext';
 import AuthContext from './contexts/AuthContext';
 import services from './services';
 import isAuth from './hoc/isAuth';
+import { setInterval } from 'timers';
 
 function App() {
   const [user, setUser] = useState({});
   const jsonUser = JSON.stringify(user);
+  const [message, setMessage] = useState();
 
   useEffect(() => {
     services.userService.profile()
@@ -39,16 +42,19 @@ function App() {
         <div></div>
         <div></div>
       </div>
-      {/* <Message status="error" message="test" /> */}
+
+      {message && <Message status={message.status} message={message.text} />}
       <AuthContext.Provider value={[user, setUser]}>
-        <Switch>
-          <Route path="/" component={Main} exact />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-          <Route path="/forgot-password" component={ForgotPassword} />
-          <Route path="/about" component={About} />
-        </Switch>
+        <MessageContext.Provider value={[message, setMessage]}>
+          <Switch>
+            <Route path="/" component={Main} exact />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/register" component={Register} />
+            <Route path="/login" component={Login} />
+            <Route path="/forgot-password" component={ForgotPassword} />
+            <Route path="/about" component={About} />
+          </Switch>
+        </MessageContext.Provider>
       </AuthContext.Provider>
     </div>
   );

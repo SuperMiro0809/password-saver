@@ -10,7 +10,7 @@ module.exports = {
 
     register(req, res, next) {
         const { email, password, rePassword } = req.body;
-        console.log(req.cookies);
+
         userModel.create({ email, password })
             .then((user) => {
 
