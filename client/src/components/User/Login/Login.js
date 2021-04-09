@@ -19,6 +19,7 @@ function Login({
 
         services.userService.login(email, password)
         .then(data => {
+            localStorage.setItem("user-id", data._id);
             userContext[1](data);
             history.push('/dashboard');
         })

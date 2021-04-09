@@ -14,6 +14,7 @@ function HeaderItem(props) {
 
             services.userService.logout()
             .then(data => {
+                localStorage.removeItem("user-id");
                 history.push('/');
                 context[1](null);
             })

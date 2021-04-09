@@ -12,7 +12,6 @@ import MessageContext from './contexts/MessageContext';
 import AuthContext from './contexts/AuthContext';
 import services from './services';
 import isAuth from './hoc/isAuth';
-import { setInterval } from 'timers';
 
 function App() {
   const [user, setUser] = useState({});
@@ -48,7 +47,7 @@ function App() {
         <MessageContext.Provider value={[message, setMessage]}>
           <Switch>
             <Route path="/" component={Main} exact />
-            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/dashboard" component={isAuth(Dashboard)} />
             <Route path="/register" component={Register} />
             <Route path="/login" component={Login} />
             <Route path="/forgot-password" component={ForgotPassword} />

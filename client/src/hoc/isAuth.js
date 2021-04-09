@@ -1,17 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
-import AuthContext from '../contexts/AuthContext';
-import services from '../services';
+import { useHistory } from 'react-router-dom';
 
 const isAuth = (WrappedComponent) => {
 
     const Component = (props) => {
-        const [user, setUser] = useContext(AuthContext);
+        const userId = localStorage.getItem("user-id")
         const history = useHistory();
 
-        if (!!user._id !== props.isLogged) {
-            let url = history.location.pathname;
-            return <Redirect to={url} />;
+        if (!userId) {
+            history.push('/login');
+
+            return null;
         }
 
         return <WrappedComponent {...props} />
