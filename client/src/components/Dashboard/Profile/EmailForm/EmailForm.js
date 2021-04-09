@@ -1,6 +1,9 @@
 import './EmailForm.scss';
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 import { Form, FormGroup, FormLabel, FormControl } from 'react-bootstrap';
+import AuthContext from '../../../../AuthContext';
+import services from '../../../../services';
 
 class EmailForm extends React.Component {
     constructor(props) {
@@ -16,7 +19,16 @@ class EmailForm extends React.Component {
 
     submitFormHandler(e) {
         e.preventDefault();
-        console.log(this.state);
+        
+        services.userService.changeEmail(this.state.email)
+        .then(data => {
+            console.log(data);
+            services.userService.logout()
+            .then(() => {
+                this.props.history.push('/login');
+                this.context[1](null);
+            })
+        })
     }
 
     changeHandler(e) {
@@ -55,4 +67,6 @@ class EmailForm extends React.Component {
     }
 }
 
-export default EmailForm;
+EmailForm.contextType = AuthContext;
+
+export default withRouter(EmailForm);

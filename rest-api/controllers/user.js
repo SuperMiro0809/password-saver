@@ -69,17 +69,17 @@ module.exports = {
     },
 
     profile(req, res, next) {
-        if(!req.user) {
+        if (!req.user) {
             res.status(401).send({ message: 'Not logged' })
-        }else {
+        } else {
             const { _id } = req.user;
 
             userModel.findOne({ _id })
-            .then((user) => {
-                res.status(200)
-                    .send(user);
-            })
-        }       
+                .then((user) => {
+                    res.status(200)
+                        .send(user);
+                })
+        }
 
     },
 
@@ -89,17 +89,30 @@ module.exports = {
         bcrypt.genSalt(saltRounds, (err, salt) => {
             bcrypt.hash(password, salt, (err, hash) => {
                 userModel.findOne({ email })
-                .then((user) => {
-                    userModel.update({ _id: user._id }, { password: hash })
-                    .then(() => {
-                        res.status(200).send({ message: 'Password changed' });
+                    .then((user) => {
+                        userModel.update({ _id: user._id }, { password: hash })
+                            .then(() => {
+                                res.status(200).send({ message: 'Password changed' });
+                            })
+                            .catch(next)
                     })
-                    .catch(next)
-                })
-                .catch(err => {
-                    res.status(401).send({ message: 'Email is not registered' });
-                });
+                    .catch(err => {
+                        res.status(401).send({ message: 'Email is not registered' });
+                    });
             })
         })
-    }   
+    },
+
+    resetEmail(req, res, next) {
+        const { email } = req.body;
+        const userdId = req.user._id;
+
+
+        userModel.findByIdAndUpdate({ _id: userdId }, { email })
+            .then(() => {
+                res.status(200)
+                    .send({ message: 'Updated successfully!' })
+            })
+            .catch(next);
+    }
 }

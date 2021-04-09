@@ -85,12 +85,30 @@ function changePassword(email, password) {
     })
 }
 
+function changeEmail(email) {
+    let data = {
+        email: email
+    }
+
+    return fetch(`${services.url}/user/reset/email`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+            'Access-Control-Allow-Origin': 'http://localhost:3000',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+}
+
 const service = {
     register,
     login,
     logout,
     profile,
-    changePassword
+    changePassword,
+    changeEmail
 }
 
 export default service;

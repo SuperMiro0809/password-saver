@@ -17,6 +17,10 @@ class PasswordForm extends React.Component {
         }
     }
 
+    componentDidMount() {
+        console.log(this.context[0]);
+    }
+
     submitFormHandler(e) {
         e.preventDefault();
 
@@ -75,5 +79,7 @@ class PasswordForm extends React.Component {
         );
     }
 }
+
+PasswordForm.contextType = AuthContext;
 
 export default PasswordForm;
