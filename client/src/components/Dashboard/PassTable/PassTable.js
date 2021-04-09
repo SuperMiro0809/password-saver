@@ -38,7 +38,7 @@ function PassTable() {
                         <Form.Control type="text" name="name" placeholder="Website/Application" />
                     </FormGroup>
                     <FormGroup className="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-4">
-                        <Form.Control className="filter-btn" type="submit" />
+                        <Form.Control className="filter-btn" type="submit" value="Filter" />
                     </FormGroup>
                 </Row>
             </Form>

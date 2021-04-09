@@ -71,6 +71,7 @@ class AddPassword extends Component {
                             type="submit" 
                             className="create-btn"
                             value="Add"
+                            disabled={!this.state.name || !this.state.auth || !this.state.password}
                         />
                     </FormGroup>
                 </Form>

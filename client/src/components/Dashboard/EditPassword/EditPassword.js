@@ -2,6 +2,7 @@ import './EditPassword.scss';
 import React from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import { Card, Form, FormControl, FormLabel, FormGroup } from 'react-bootstrap';
+import MessageContext from '../../../contexts/MessageContext';
 import services from '../../../services';
 
 class EditPassword extends React.Component {
@@ -32,7 +33,12 @@ class EditPassword extends React.Component {
 
         services.passwordService.editPassword(this.props.match.params.id, this.state.name, this.state.auth, this.state.password)
         .then(data => {
-            this.setState({ redirect: true })
+            this.context[1]({ status: 'success', text: data.message });
+            const interval = setInterval(function () {
+                this.context[1]('');
+                this.setState({ redirect: true });
+                clearInterval(interval);
+            }.bind(this), 1000)
         })
     }
 
@@ -83,6 +89,7 @@ class EditPassword extends React.Component {
                             type="submit"
                             className="edit-btn"
                             value="Edit"
+                            disabled={!this.state.name || !this.state.auth || !this.state.password}
                         />
                     </FormGroup>
                 </Form>
@@ -91,5 +98,7 @@ class EditPassword extends React.Component {
 
     }
 }
+
+EditPassword.contextType = MessageContext;
 
 export default withRouter(EditPassword);

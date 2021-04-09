@@ -44,7 +44,7 @@ module.exports = {
             .then(([user, match]) => {
                 if (!match) {
                     res.status(401)
-                        .send({ message: 'Wrong email or password' });
+                        .send({ message: 'Wrong email or password!' });
                     return;
                 }
 
@@ -70,7 +70,7 @@ module.exports = {
 
     profile(req, res, next) {
         if (!req.user) {
-            res.status(401).send({ message: 'Not logged' })
+            res.status(401).send({ message: 'Not logged!' })
         } else {
             const { _id } = req.user;
 
@@ -92,12 +92,12 @@ module.exports = {
                     .then((user) => {
                         userModel.update({ _id: user._id }, { password: hash })
                             .then(() => {
-                                res.status(200).send({ message: 'Password changed' });
+                                res.status(200).send({ message: 'Password changed!' });
                             })
                             .catch(next)
                     })
                     .catch(err => {
-                        res.status(401).send({ message: 'Email is not registered' });
+                        res.status(401).send({ message: 'Email is not registered!' });
                     });
             })
         })
@@ -111,7 +111,7 @@ module.exports = {
         userModel.findByIdAndUpdate({ _id: userdId }, { email })
             .then(() => {
                 res.status(200)
-                    .send({ message: 'Email changed' })
+                    .send({ message: 'Email changed!' })
             })
             .catch(err => {
                 if (err.name === 'MongoError' && err.code === 11000) {

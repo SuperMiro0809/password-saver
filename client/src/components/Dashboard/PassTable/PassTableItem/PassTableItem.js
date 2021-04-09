@@ -2,15 +2,22 @@ import './PassTableItem.scss';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PassContext from '../../../../contexts/PassContext';
+import MessageContext from '../../../../contexts/MessageContext';
 import services from '../../../../services';
 
 function PassTableItem(props) {
-    const context = useContext(PassContext);
+    const userContext = useContext(PassContext);
+    const messageContext = useContext(MessageContext);
 
     function deleteButtonHandler(e) {
         services.passwordService.deletePassword(props.id)
         .then(data => {
-            context[1](data);
+            messageContext[1]({ status: 'success', text: 'Password deleted' });
+            userContext[1](data);
+            const interval = setInterval(function () {
+                messageContext[1]('');
+                clearInterval(interval);
+            }, 2000)
         })
     }   
 
