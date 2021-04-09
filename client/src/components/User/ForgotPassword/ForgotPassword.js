@@ -1,30 +1,37 @@
-import './Login.scss';
+import './ForgotPassword.scss';
 import { Form, FormGroup, FormControl, FormLabel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useState, useContext } from 'react';
-import AuthContext from '../../../AuthContext';
+import { useState } from 'react';
+import Message from '../../Message/Message';
 import services from '../../../services';
 
-function Login({
+function ForgotPassword({
     history
 }) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    let context = useContext(AuthContext);
+    const [error, setError] = useState();
 
-    function submitFormHandler(event) {
-        event.preventDefault();
+    function submitFormHandler(e) {
+        e.preventDefault();
 
-        services.userService.login(email, password)
+        services.userService.changePassword(email, password)
         .then(data => {
-            context[1](data);
-            history.push('/dashboard');
+            history.push('/login');
+        })
+        .catch(err => {
+            setError(err.message)
         })
     }
 
     return (
-        <div className="Login">
-             <h2>Login</h2>
+        <div className="Forgot-password">
+             <h2>Forgot Password</h2>
+             {error ? 
+                <Message status="error" message={error} />
+                :
+                null
+            }
             <Form onSubmit={e => submitFormHandler(e)}>
                 <FormGroup>
                     <FormLabel>Email</FormLabel>
@@ -36,7 +43,7 @@ function Login({
                     />
                 </FormGroup>
                 <FormGroup>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>New password</FormLabel>
                     <FormControl 
                         type="password" 
                         name="password"
@@ -47,12 +54,11 @@ function Login({
                 <FormGroup className="btn-wrapper">
                     <FormControl 
                         type="submit"
-                        className="login-btn"
-                        value="Login"
+                        className="forgot-btn"
+                        value="Reset password"
                     />
                     <div className="options">
-                        <Link to="/register" >Don't have an account?</Link>
-                        <Link to="/forgot-password" >Forgot password?</Link>
+                        <Link to="/login" >Back to Login</Link>
                     </div>
                 </FormGroup>
             </Form>
@@ -60,4 +66,4 @@ function Login({
     );
 }
 
-export default Login;
+export default ForgotPassword;

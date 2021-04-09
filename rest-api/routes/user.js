@@ -12,4 +12,6 @@ router.get('/logout', userController.logout);
 
 router.get('/profile', auth, userController.profile);
 
+router.put('/reset/password', auth, userController.resetPassword);
+
 module.exports = router;

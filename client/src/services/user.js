@@ -61,11 +61,36 @@ function profile() {
     .then(res => res.json())
 }
 
+function changePassword(email, password) {
+    let data = {
+        email: email,
+        password: password
+    }
+
+    return fetch(`${services.url}/user/reset/password`, {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+            'Access-Control-Allow-Origin': 'http://localhost:3000',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(res => {
+        if(res.status === 200) {
+            return res.json();
+        }else if(res.status === 401) {
+            throw new Error('Email not registered!');
+        }
+    })
+}
+
 const service = {
     register,
     login,
     logout,
-    profile
+    profile,
+    changePassword
 }
 
 export default service;

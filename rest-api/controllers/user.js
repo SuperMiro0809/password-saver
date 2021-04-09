@@ -2,6 +2,7 @@ const path = require('path');
 const userModel = require(path.join(__dirname, '../models/user'));
 const config = require(path.join(__dirname, '../config/config'));
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const { jwtSecret, authCookieName, authHeaderName, saltRounds } = config;
 
@@ -80,5 +81,25 @@ module.exports = {
             })
         }       
 
-    }
+    },
+
+    resetPassword(req, res, next) {
+        const { email, password } = req.body;
+
+        bcrypt.genSalt(saltRounds, (err, salt) => {
+            bcrypt.hash(password, salt, (err, hash) => {
+                userModel.findOne({ email })
+                .then((user) => {
+                    userModel.update({ _id: user._id }, { password: hash })
+                    .then(() => {
+                        res.status(200).send({ message: 'Password changed' });
+                    })
+                    .catch(next)
+                })
+                .catch(err => {
+                    res.status(401).send({ message: 'Email is not registered' });
+                });
+            })
+        })
+    }   
 }
