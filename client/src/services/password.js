@@ -4,10 +4,7 @@ function getPasswords(id) {
     return fetch(`${services.url}/password/${id}`, {
         method: 'GET',
         credentials: 'include',
-        headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:3000',
-            'Content-Type': 'application/json',
-        },
+        headers: services.header,
     })
     .then(res => res.json())
 }
@@ -16,10 +13,7 @@ function getPasswordById(passwordId) {
     return fetch(`${services.url}/password/password/${passwordId}`, {
         method: 'GET',
         credentials: 'include',
-        headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:3000',
-            'Content-Type': 'application/json',
-        },
+        headers: services.header,
     })
     .then(res => res.json())
 }
@@ -28,10 +22,7 @@ function filterPasswords(id, name) {
     return fetch(`${services.url}/password/${id}?name=${name}`, {
         method: 'GET',
         credentials: 'include',
-        headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:3000',
-            'Content-Type': 'application/json',
-        },
+        headers: services.header,
     })
     .then(res => res.json())
 }
@@ -46,10 +37,7 @@ function AddPassword(name, auth, password) {
     return fetch(`${services.url}/password`, {
         method: 'POST',
         credentials: 'include',
-        headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:3000',
-            'Content-Type': 'application/json',
-        },
+        headers: services.header,
         body: JSON.stringify(data)
     })
     .then(res => res.json())
@@ -59,10 +47,7 @@ function deletePassword(passwordId) {
     return fetch(`${services.url}/password/${passwordId}`, {
         method: 'DELETE',
         credentials: 'include',
-        headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:3000',
-            'Content-Type': 'application/json',
-        }
+        headers: services.header
     })
     .then(res => res.json())
 }
@@ -77,10 +62,7 @@ function editPassword(passwordId, name, auth, password) {
     return fetch(`${services.url}/password/${passwordId}`, {
         method: 'PUT',
         credentials: 'include',
-        headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:3000',
-            'Content-Type': 'application/json',
-        },
+        headers: services.header,
         body: JSON.stringify(data)
     })
     .then(res => res.json())

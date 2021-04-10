@@ -22,7 +22,9 @@ function PassTable() {
     function loadPasswords() {
         services.passwordService.getPasswords(user._id)
                 .then(data => {
-                    inputRef.current.value = '';
+                    if(inputRef.current) {
+                        inputRef.current.value = '';
+                    }
                     setPasswords(data);
         })
     }

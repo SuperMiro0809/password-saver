@@ -10,10 +10,7 @@ function register(email, password, repeatPassword) {
     return fetch(`${services.url}/user/register`, {
         method: 'POST',
         credentials: 'include',
-        headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:3000',
-            'Content-Type': 'application/json',
-        },
+        headers: services.header,
         body: JSON.stringify(data)
     })
     .then(res => {
@@ -34,10 +31,7 @@ function login(email, password) {
     return fetch(`${services.url}/user/login`, {
         method: 'POST',
         credentials: 'include',
-        headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:3000',
-            'Content-Type': 'application/json',
-        },
+        headers: services.header,
         body: JSON.stringify(data)
     })
     .then(res => {
@@ -53,10 +47,7 @@ function logout() {
     return fetch(`${services.url}/user/logout`, {
         method: 'GET',
         credentials: 'include',
-        headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:3000',
-            'Content-Type': 'application/json',
-        }
+        headers: services.header
     })
     .then(res => res.json())
 }
@@ -65,10 +56,7 @@ function profile() {
     return fetch(`${services.url}/user/profile`, {
         method: 'GET',
         credentials: 'include',
-        headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:3000',
-            'Content-Type': 'application/json',
-        }
+        headers: services.header
     })
     .then(res => res.json())
 }
@@ -82,10 +70,7 @@ function changePassword(email, password) {
     return fetch(`${services.url}/user/reset/password`, {
         method: 'PUT',
         credentials: 'include',
-        headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:3000',
-            'Content-Type': 'application/json',
-        },
+        headers: services.header,
         body: JSON.stringify(data)
     })
     .then(res => {
@@ -105,10 +90,7 @@ function changeEmail(email) {
     return fetch(`${services.url}/user/reset/email`, {
         method: 'PUT',
         credentials: 'include',
-        headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:3000',
-            'Content-Type': 'application/json',
-        },
+        headers: services.header,
         body: JSON.stringify(data)
     })
     .then(res => {
