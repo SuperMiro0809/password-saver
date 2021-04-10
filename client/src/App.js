@@ -12,6 +12,7 @@ import MessageContext from './contexts/MessageContext';
 import AuthContext from './contexts/AuthContext';
 import services from './services';
 import isAuth from './hoc/isAuth';
+import isNotAuth from './hoc/isNotAuth';
 
 function App() {
   const [user, setUser] = useState({});
@@ -46,12 +47,12 @@ function App() {
       <AuthContext.Provider value={[user, setUser]}>
         <MessageContext.Provider value={[message, setMessage]}>
           <Switch>
-            <Route path="/" component={Main} exact />
+            <Route path="/" component={isNotAuth(Main)} exact />
             <Route path="/dashboard" component={isAuth(Dashboard)} />
-            <Route path="/register" component={Register} />
-            <Route path="/login" component={Login} />
-            <Route path="/forgot-password" component={ForgotPassword} />
-            <Route path="/about" component={About} />
+            <Route path="/register" component={isNotAuth(Register)} />
+            <Route path="/login" component={isNotAuth(Login)} />
+            <Route path="/forgot-password" component={isNotAuth(ForgotPassword)} />
+            <Route path="/about" component={isNotAuth(About)} />
           </Switch>
         </MessageContext.Provider>
       </AuthContext.Provider>

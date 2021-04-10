@@ -1,13 +1,13 @@
 import { useHistory } from 'react-router-dom';
 
-const isAuth = (WrappedComponent) => {
+const isNotAuth = (WrappedComponent) => {
 
     const Component = (props) => {
         const userId = localStorage.getItem("user-id");
         const history = useHistory();
 
-        if (!userId) {
-            history.push('/login');
+        if (userId) {
+           history.push('/dashboard');
 
             return null;
         }
@@ -18,4 +18,4 @@ const isAuth = (WrappedComponent) => {
     return Component;
 };
 
-export default isAuth;
+export default isNotAuth;

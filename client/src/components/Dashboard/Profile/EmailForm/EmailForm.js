@@ -27,6 +27,7 @@ class EmailForm extends React.Component {
                         this.props.message[1]({ status: 'success', text: data.message });
                         const interval = setInterval(function () {
                             this.props.message[1]('');
+                            localStorage.removeItem("user-id");
                             this.props.history.push('/login');
                             this.props.user[1](null);
                             clearInterval(interval);

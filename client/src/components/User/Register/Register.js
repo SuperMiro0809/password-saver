@@ -23,6 +23,7 @@ function Register({
 
         services.userService.register(email, password, repeatPassword)
         .then(data => {
+            localStorage.setItem("user-id", data._id);
             userContext[1](data);
             history.push('/dashboard');
         })
