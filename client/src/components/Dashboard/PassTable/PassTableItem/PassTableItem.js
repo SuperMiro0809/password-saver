@@ -6,14 +6,14 @@ import MessageContext from '../../../../contexts/MessageContext';
 import services from '../../../../services';
 
 function PassTableItem(props) {
-    const userContext = useContext(PassContext);
+    const passContext = useContext(PassContext);
     const messageContext = useContext(MessageContext);
 
     function deleteButtonHandler(e) {
         services.passwordService.deletePassword(props.id)
         .then(data => {
             messageContext[1]({ status: 'success', text: 'Password deleted' });
-            userContext[1](data);
+            //passContext[1](data);
             const interval = setInterval(function () {
                 messageContext[1]('');
                 clearInterval(interval);

@@ -1,6 +1,6 @@
 import './EditPassword.scss';
 import React from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { Card, Form, FormControl, FormLabel, FormGroup } from 'react-bootstrap';
 import MessageContext from '../../../contexts/MessageContext';
 import services from '../../../services';
@@ -12,8 +12,7 @@ class EditPassword extends React.Component {
         this.state = {
             name: '',
             auth: '',
-            password: '',
-            redirect: false
+            password: ''
         }
     }
 
@@ -36,8 +35,8 @@ class EditPassword extends React.Component {
             this.context[1]({ status: 'success', text: data.message });
             const interval = setInterval(function () {
                 this.context[1]('');
-                this.setState({ redirect: true });
                 clearInterval(interval);
+                this.props.history.push('/dashboard');
             }.bind(this), 1000)
         })
     }
@@ -47,10 +46,6 @@ class EditPassword extends React.Component {
     }
 
     render() {
-        if(this.state.redirect) {
-            return <Redirect to="/dashboard"/>
-        }
-
         return (
             <Card.Body className="component-content">
                 <Form onSubmit={e => this.submitFormHandler(e)}>
