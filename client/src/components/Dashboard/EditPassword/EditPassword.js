@@ -83,7 +83,7 @@ class EditPassword extends React.Component {
                         <FormControl
                             type="submit"
                             className="edit-btn"
-                            value="Edit"
+                            value="Save"
                             disabled={!this.state.name || !this.state.auth || !this.state.password}
                         />
                     </FormGroup>

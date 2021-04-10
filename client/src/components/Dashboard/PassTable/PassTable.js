@@ -1,5 +1,5 @@
 import './PassTable.scss';
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 import AuthContext from '../../../contexts/AuthContext';
 import { Table, Card, Form, Row, FormGroup } from 'react-bootstrap';
 import services from '../../../services';
@@ -9,17 +9,23 @@ import PassContext from '../../../contexts/PassContext';
 function PassTable() {
     const [user] = useContext(AuthContext);
     const [passwords, setPasswords] = useState([]);
+    const inputRef = useRef();
     //const jsonPasswords = JSON.stringify(passwords);
     //const jsonUser = JSON.stringify(user);
 
     useEffect(() => {
         if(user._id) {
-            services.passwordService.getPasswords(user._id)
-                .then(data => {
-                    setPasswords(data);
-                })
+            loadPasswords();
         }    
     }, [user._id])
+
+    function loadPasswords() {
+        services.passwordService.getPasswords(user._id)
+                .then(data => {
+                    inputRef.current.value = '';
+                    setPasswords(data);
+        })
+    }
 
     function submitFilterFormHandler(e) {
         e.preventDefault();
@@ -35,10 +41,13 @@ function PassTable() {
             <Form onSubmit={e => submitFilterFormHandler(e)}>
                 <Row>
                     <FormGroup className="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-4">
-                        <Form.Control type="text" name="name" placeholder="Website/Application" />
+                        <Form.Control type="text" name="name" placeholder="Website/Application" ref={inputRef} />
                     </FormGroup>
-                    <FormGroup className="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-4">
+                    <FormGroup className="col-xs-12 col-sm-12 col-md-12 col-lg-3 mb-4">
                         <Form.Control className="filter-btn" type="submit" value="Filter" />
+                    </FormGroup>
+                    <FormGroup className="col-xs-12 col-sm-12 col-md-12 col-lg-3 mb-4">
+                        <Form.Control onClick={e => loadPasswords()} className="clear-btn" type="button" value="Clear" />
                     </FormGroup>
                 </Row>
             </Form>

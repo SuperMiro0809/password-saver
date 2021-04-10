@@ -18,6 +18,17 @@
         outline: none;
     }
 
+    .clear-btn {
+        color: #23282c;
+        background-color: #c8ced3;
+        border-color: #c8ced3;
+    }
+
+    .clear-btn:hover {
+        background-color: #B3BBC2;
+        border-color: #B3BBC2;
+    }
+
     .filter-btn:hover {
         background-color: rgba(245, 158, 20, 0.8);
     }
