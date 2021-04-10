@@ -23,23 +23,23 @@ const passwordSchema = new mongoose.Schema({
     creatorId: { type: mongoose.Types.ObjectId, ref: 'user' }
 });
 
-passwordSchema.pre('save', function (next) {
-    if (this.isModified('password')) {
-        bcrypt.genSalt(saltRounds, (err, salt) => {
-            if (err) {
-                next(err);
-            }
-            bcrypt.hash(this.password, salt, (err, hash) => {
-                if (err) {
-                    next(err);
-                }
-                this.password = hash;
-                next();
-            })
-        })
-        return;
-    }
-    next();
-});
+// passwordSchema.pre('save', function (next) {
+//     if (this.isModified('password')) {
+//         bcrypt.genSalt(saltRounds, (err, salt) => {
+//             if (err) {
+//                 next(err);
+//             }
+//             bcrypt.hash(this.password, salt, (err, hash) => {
+//                 if (err) {
+//                     next(err);
+//                 }
+//                 this.password = hash;
+//                 next();
+//             })
+//         })
+//         return;
+//     }
+//     next();
+// });
 
 module.exports = mongoose.model('password', passwordSchema);
